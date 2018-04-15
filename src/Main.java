@@ -1,4 +1,6 @@
 import array.Array;
+import search.AverageSearch;
+import search.MaxSearch;
 import search.MinSearch;
 import search.Search;
 import sort.BubbleSort;
@@ -18,7 +20,11 @@ public class Main {
         arr.print(arr.array);
 
         Search minSearch = new MinSearch();
-        System.out.println("\nMin is: " + minSearch.search(arr.array));
+        System.out.print("\nMin is: " + minSearch.search(arr.array));
+        Search maxSearch = new MaxSearch();
+        System.out.print("\nMax is: " + maxSearch.search(arr.array));
+        Search averageSearchSearch = new AverageSearch();
+        System.out.print("\nAverage is: " + averageSearchSearch.search(arr.array));
 
 //        Sort msort = new MergeSort();
 //        System.out.println(msort.sort(arr.array));

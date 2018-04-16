@@ -1,34 +1,54 @@
 package sort;
 
-import java.util.Arrays;
-
 public class MergeSort implements Sort {
+    private int[] array;
+    private int[] temp;
+
+    private int size;
     @Override
-    public int[] sort(int[] ar) {
+    public int[] sort(int[] array) {
 
-        if (ar.length < 2) return ar;
-
-        int mid = ar.length / 2;
-
-        int[] left = Arrays.copyOfRange(ar, 0, mid);
-        int[] right = Arrays.copyOfRange(ar, mid, ar.length);
-
-        return merge(sort(left), sort(right));
+        this.array = array;
+        size = array.length;
+        this.temp = new int[size];
+        mergesort(0, size - 1);
+        return array;
     }
 
-    public static int[] merge(int[] left, int[] right){
+    private void mergesort(int low, int high) {
+        if (low < high) {
+            int middle = low + (high - low) / 2;
 
-        int length = left.length + right.length;
-        int[] m = new int[length];
-
-        int leftIndex = 0, rightIndex = 0;
-
-        for (int i = 0; i < m.length; i++) {
-            if (leftIndex == left.length) m[i] = right[rightIndex++];
-            else if (rightIndex == right.length) m[i] = left[leftIndex++];
-            else if (left[leftIndex] < right[rightIndex]) m[i] = left[leftIndex++];
-            else m[i] = right[rightIndex++];
+            mergesort(low, middle);
+            mergesort(middle + 1, high);
+            merge(low, middle, high);
         }
-        return m;
+    }
+
+    private void merge(int low, int middle, int high) {
+
+        for (int i = low; i <= high; i++) {
+            temp[i] = array[i];
+        }
+
+        int i = low;
+        int j = middle + 1;
+        int k = low;
+
+        while (i <= middle && j <= high) {
+            if (temp[i] <= temp[j]) {
+                array[k] = temp[i];
+                i++;
+            } else {
+                array[k] = temp[j];
+                j++;
+            }
+            k++;
+        }
+        while (i <= middle) {
+            array[k] = temp[i];
+            k++;
+            i++;
+        }
     }
 }
